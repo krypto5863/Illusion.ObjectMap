@@ -7,6 +7,7 @@ This plugin allows you to:
 - Enable/Disable individual objects
 - Manipulate map lights (Highly recommend getting [LightSettings](https://github.com/starstormhun/StarPlugins))
 - Use MaterialEditor on map objects
+- Reset objects back to their original position (look on the left toolbar for the Reset Transform button).
 
 What it doesn't let you do:
 - Delete map objects
