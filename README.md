@@ -15,6 +15,9 @@ What it doesn't let you do:
 - Copy map objects
 - Make her come back... :(
 
+Known Issues:
+- If your map is particularly large with many individual items, this plugin may slow down loading *considerably* as it works through all of them. So you may have to sit around a while longer, sorry.
+
 [CharaStudio_dtXGFUaYcZ.webm](https://github.com/user-attachments/assets/3a32f57c-ada7-429e-bd91-b7debb4bc988)
 
 
