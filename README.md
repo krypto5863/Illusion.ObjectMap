@@ -12,6 +12,7 @@ What it doesn't let you do:
 - Delete map objects
 - Reparent map objects
 - Parent stuff TO map objects
+- Copy map objects
 - Make her come back... :(
 
 [CharaStudio_dtXGFUaYcZ.webm](https://github.com/user-attachments/assets/3a32f57c-ada7-429e-bd91-b7debb4bc988)
