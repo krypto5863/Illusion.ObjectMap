@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core.ObjectMap", "Illusion.ObjectMap\Core.ObjectMap.shproj", "{039161FE-6150-40E4-B222-518B49A76F89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS.ObjectMap", "KKS.ObjectMap\KKS.ObjectMap.csproj", "{86E919C8-AE62-45B1-9C20-6E94B9B95B45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2.ObjectMap", "HS2.ObjectMap\HS2.ObjectMap.csproj", "{0F2146AC-2042-4553-9223-37DC1A676A4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK.ObjectMap", "KK.ObjectMap\KK.ObjectMap.csproj", "{0322CDD2-C89A-47A6-919A-36F0DB66DAAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86E919C8-AE62-45B1-9C20-6E94B9B95B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E919C8-AE62-45B1-9C20-6E94B9B95B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E919C8-AE62-45B1-9C20-6E94B9B95B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E919C8-AE62-45B1-9C20-6E94B9B95B45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2146AC-2042-4553-9223-37DC1A676A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2146AC-2042-4553-9223-37DC1A676A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2146AC-2042-4553-9223-37DC1A676A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2146AC-2042-4553-9223-37DC1A676A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0322CDD2-C89A-47A6-919A-36F0DB66DAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0322CDD2-C89A-47A6-919A-36F0DB66DAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0322CDD2-C89A-47A6-919A-36F0DB66DAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0322CDD2-C89A-47A6-919A-36F0DB66DAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BFABE4B-C04E-4F1C-B33F-2607BE8CA696}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Illusion.ObjectMap\Illusion.ObjectMap.projitems*{0322cdd2-c89a-47a6-919a-36f0db66daad}*SharedItemsImports = 4
+		Illusion.ObjectMap\Illusion.ObjectMap.projitems*{039161fe-6150-40e4-b222-518b49a76f89}*SharedItemsImports = 13
+		Illusion.ObjectMap\Illusion.ObjectMap.projitems*{0f2146ac-2042-4553-9223-37dc1a676a4d}*SharedItemsImports = 4
+		Illusion.ObjectMap\Illusion.ObjectMap.projitems*{86e919c8-ae62-45b1-9c20-6e94b9b95b45}*SharedItemsImports = 4
+	EndGlobalSection
+EndGlobal
