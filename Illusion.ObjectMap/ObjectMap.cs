@@ -149,6 +149,7 @@ namespace Core.ObjectMap
 			ObjectCtrlInfo newItem;
 
 			var hash = gameObj.GetPathWithSiblingIndex().GetHashCode();
+			hash = Math.Abs(hash);
 			var occupied = Studio.Studio.GetCtrlInfo(hash) != null;
 
 			if (occupied)
