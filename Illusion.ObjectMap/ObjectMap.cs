@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
@@ -90,6 +91,10 @@ namespace Core.ObjectMap
 
 		private IEnumerator CoroutineCaptureMapChange()
 		{
+#if DEBUG
+			var watch = Stopwatch.StartNew();
+#endif
+
 			foreach (var mapObj in MapObjects)
 			{
 				mapObj.Value.treeNodeObject.enableDelete = true;
@@ -107,7 +112,7 @@ namespace Core.ObjectMap
 #if HS2
 			var mapRoot = Studio.Map.instance?.MapRoot;
 #else
-			var mapRoot = Studio.Map.instance?.mapRoot;
+			var mapRoot = Map.instance?.mapRoot;
 #endif
 			if (mapRoot == null)
 			{ 
@@ -115,10 +120,11 @@ namespace Core.ObjectMap
 			}
 
 			RecursiveCreateNode(mapRoot, null);
+			Studio.Studio.instance.treeNodeCtrl.RefreshHierachy();
 			yield return EnableDisabledForAFrame(mapRoot);
 
 #if DEBUG
-			Logger.LogDebug("Map changed, Reloaded Map Objects");
+			Logger.LogDebug($"Map changed, processed map objects in {watch.Elapsed}");
 #endif
 		}
 
@@ -185,7 +191,8 @@ namespace Core.ObjectMap
 			MapObjects[gameObj] = newItem;
 			
 			if (parent != null) {
-				Studio.Studio.instance.treeNodeCtrl.SetParent(newItem.treeNodeObject, parent.treeNodeObject);
+				//Studio.Studio.instance.treeNodeCtrl.SetParent(newItem.treeNodeObject, parent.treeNodeObject);
+				newItem.treeNodeObject.SetParent(parent.treeNodeObject);
 			}
 
 			foreach (var child in gameObj.Children())

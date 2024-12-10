@@ -149,4 +149,9 @@
   <Import Project="..\packages\IllusionLibs.HoneySelect2.Assembly-CSharp-firstpass.2020.5.29.5\build\IllusionLibs.HoneySelect2.Assembly-CSharp-firstpass.targets" Condition="Exists('..\packages\IllusionLibs.HoneySelect2.Assembly-CSharp-firstpass.2020.5.29.5\build\IllusionLibs.HoneySelect2.Assembly-CSharp-firstpass.targets')" />
   <Import Project="..\packages\IllusionLibs.HoneySelect2.IL.2020.5.29.5\build\IllusionLibs.HoneySelect2.IL.targets" Condition="Exists('..\packages\IllusionLibs.HoneySelect2.IL.2020.5.29.5\build\IllusionLibs.HoneySelect2.IL.targets')" />
   <Import Project="..\packages\IllusionLibs.HoneySelect2.Sirenix.Serialization.2020.5.29.5\build\IllusionLibs.HoneySelect2.Sirenix.Serialization.targets" Condition="Exists('..\packages\IllusionLibs.HoneySelect2.Sirenix.Serialization.2020.5.29.5\build\IllusionLibs.HoneySelect2.Sirenix.Serialization.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>del "G:\Illusion\HoneySelect2 DX\BepInEx\plugins\$(TargetFileName)"
+copy "$(TargetPath)" "G:\Illusion\HoneySelect2 DX\BepInEx\plugins"
+powershell -Command "Start-Process 'G:\Illusion\HoneySelect2 DX\StudioNEOV2.exe'"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
