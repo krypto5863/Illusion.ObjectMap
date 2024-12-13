@@ -189,10 +189,17 @@ namespace Core.ObjectMap
 			newItem.guideObject.changeAmount.OnChange();
 
 			MapObjects[gameObj] = newItem;
-			
-			if (parent != null) {
+
+			if (parent != null)
+			{
 				//Studio.Studio.instance.treeNodeCtrl.SetParent(newItem.treeNodeObject, parent.treeNodeObject);
 				newItem.treeNodeObject.SetParent(parent.treeNodeObject);
+			}
+			else
+			{
+				var nodeCtrl = Studio.Studio.Instance.treeNodeCtrl;
+				nodeCtrl.m_TreeNodeObject.Remove(newItem.treeNodeObject);
+				nodeCtrl.m_TreeNodeObject.Insert(0, newItem.treeNodeObject);
 			}
 
 			foreach (var child in gameObj.Children())
