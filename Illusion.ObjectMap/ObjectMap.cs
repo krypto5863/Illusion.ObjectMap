@@ -105,10 +105,8 @@ namespace Core.ObjectMap
 			MapObjects.Clear();
 			OriginalProperties.Clear();
 
-			while (Studio.Map.Instance.isLoading)
-			{
-				yield return null;
-			}
+			yield return new WaitUntil(() => Studio.Map.Instance.isLoading == false);
+
 #if HS2
 			var mapRoot = Studio.Map.instance?.MapRoot;
 #else
@@ -118,6 +116,9 @@ namespace Core.ObjectMap
 			{ 
 				yield break;
 			}
+
+			//Wait for end of frame so all map components can do their Awake properly.
+			yield return new WaitForEndOfFrame();
 
 			RecursiveCreateNode(mapRoot, null);
 			Studio.Studio.instance.treeNodeCtrl.RefreshHierachy();
