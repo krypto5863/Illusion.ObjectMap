@@ -18,9 +18,7 @@ What it doesn't let you do:
 
 Known Issues:
 - Not really an issue, depending on the time of day map selection some objects will not show up. This is normal and they are there just invisible until you change the time of day. This is done to ensure the feature works properly.
-- If your map is particularly large with many individual items, this plugin may slow down loading *considerably* as it works through all of them. So you may have to sit around a while longer, sorry.
-- (Unconfirmed) Issues with Timeline plugin.
-- (Unconfirmed) Issues with KKPE/HSPE.
+- Some reflection probes seem to randomly turn yellow. Not much can be done as it seems to be related to the movement of the probe.
 
 [CharaStudio_dtXGFUaYcZ.webm](https://github.com/user-attachments/assets/3a32f57c-ada7-429e-bd91-b7debb4bc988)
 
