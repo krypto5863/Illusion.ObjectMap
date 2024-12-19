@@ -14,6 +14,9 @@ namespace Core.ObjectMap
 		protected override void OnSceneLoad(SceneOperationKind operation,
 			ReadOnlyDictionary<int, ObjectCtrlInfo> loadedItems)
 		{
+#if DEBUG
+			ObjectMap.Logger.LogDebug($"Loading scene data...");
+#endif
 			var data = GetExtendedData();
 
 			if (data == null)
@@ -95,6 +98,9 @@ namespace Core.ObjectMap
 					}
 				}
 			}
+#if DEBUG
+			ObjectMap.Logger.LogDebug($"Scene load complete.");
+#endif
 		}
 
 		private static bool TryGetObjectInfo(string objectFullPath, out ObjectCtrlInfo currentObjectInfo)
@@ -107,14 +113,7 @@ namespace Core.ObjectMap
 				return false;
 			}
 
-			currentObjectInfo = ObjectMap.MapObjects[gameObject];
-
-			if (currentObjectInfo == null)
-			{
-				return false;
-			}
-
-			return true;
+			return ObjectMap.MapObjects.TryGetValue(gameObject, out currentObjectInfo);
 		}
 
 		protected override void OnSceneSave()
