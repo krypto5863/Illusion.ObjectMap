@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Illusion.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -82,6 +84,15 @@ namespace Core.ObjectMap
 			return null;
 		}
 
+		public static int GetDescendantCount(this GameObject obj)
+		{
+			var count = 0;
+			foreach (Transform child in obj.transform)
+			{
+				count++;
+				count += child.gameObject.GetDescendantCount();
+			}
+			return count;
+		}
 	}
-
 }
