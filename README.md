@@ -24,4 +24,5 @@ Known Issues:
 
 
 ### Install
-Just drop the DLL into bepinex/plugins
+Make sure you have the latest [IllusionModdingAPI](https://github.com/IllusionMods/IllusionModdingAPI)
+Then, just drop the DLL into bepinex/plugins
