@@ -18,9 +18,11 @@ What it doesn't let you do:
 
 Known Issues:
 - Not really an issue, depending on the time of day map selection some objects will not show up. This is normal and they are there just invisible until you change the time of day. This is done to ensure the feature works properly.
+- Maps with many objects will slow your FPS to a crawl. To avoid this, in version [1.1.4](https://github.com/krypto5863/Illusion.ObjectMap/releases/tag/1.1.4), a configurable object limit was added that ignores maps that have more objects than the limit. To help with this, you can use [Performancer](https://github.com/starstormhun/StarPlugins) to help with the load. However, this will not solve the problem.
 
 [CharaStudio_dtXGFUaYcZ.webm](https://github.com/user-attachments/assets/3a32f57c-ada7-429e-bd91-b7debb4bc988)
 
 
 ### Install
-Just drop the DLL into bepinex/plugins
+Make sure you have the latest [IllusionModdingAPI](https://github.com/IllusionMods/IllusionModdingAPI)
+Then, just drop the DLL into bepinex/plugins
