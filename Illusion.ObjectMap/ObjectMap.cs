@@ -7,6 +7,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using ExtensibleSaveFormat;
+using HarmonyLib;
 using Illusion.Extensions;
 using KKAPI;
 using KKAPI.Studio;
@@ -52,7 +53,18 @@ namespace Core.ObjectMap
 				KKAPI.Studio.UI.CustomToolbarButtons.AddLeftToolbarButton(tex2D, ResetTransformOfSelected);
 				Studio.Studio.Instance.onChangeMap += OnInstanceChangeMap;
 			};
+
+			Harmony.CreateAndPatchAll(typeof(ObjectMap));
 		}
+
+		[HarmonyPatch(typeof(MonoBehaviour), nameof(StartCoroutine), typeof(string), typeof(object))]
+		[HarmonyPatch(typeof(MonoBehaviour), nameof(StartCoroutine), typeof(IEnumerator))]
+		[HarmonyPostfix]
+		private static void PatchStartCoroutine(ref MonoBehaviour __instance) 
+		{
+			Logger.LogDebug($"A coroutine was started on {__instance.gameObject.name} from {Environment.StackTrace}.");
+		}
+
 		internal static void ResetTransformOfSelected()
 		{
 			if (Singleton<Studio.Studio>.Instance.treeNodeCtrl.selectNodes.Length <= 0)
@@ -124,11 +136,7 @@ namespace Core.ObjectMap
 				yield break;
 			}
 
-			GuideObjectManager.Instance.transformWorkplace.gameObject.SetActive(false);
-
-
 			var childCount = mapRoot.GetDescendantCount();
-
 
 #if DEBUG
 			Logger.LogDebug($"Map changed, processing {childCount} children!");
@@ -139,6 +147,8 @@ namespace Core.ObjectMap
 				Logger.LogMessage($"Skipped processing map because it has more objects than the configured limit ({childCount}).");
 				yield break;
 			}
+
+			GuideObjectManager.Instance.transformWorkplace.gameObject.SetActive(false);
 
 			RecursiveCreateNode(mapRoot, null);
 
