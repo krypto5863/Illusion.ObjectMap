@@ -1,6 +1,4 @@
-﻿using Illusion.Extensions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;

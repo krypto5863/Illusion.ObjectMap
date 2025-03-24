@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using ExtensibleSaveFormat;
+﻿using ExtensibleSaveFormat;
 using KKAPI.Studio.SaveLoad;
 using KKAPI.Utilities;
 using MessagePack;
 using Studio;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.ObjectMap
@@ -80,7 +80,7 @@ namespace Core.ObjectMap
 				var lightChanges = MessagePackSerializer.Deserialize<List<ObjectLight>>((byte[])lightChangesData);
 				foreach (var lightChange in lightChanges)
 				{
-					if (TryGetObjectInfo(lightChange.Id, out var currentObjectInfo) == false) 
+					if (TryGetObjectInfo(lightChange.Id, out var currentObjectInfo) == false)
 					{
 						continue;
 					}
@@ -160,7 +160,7 @@ namespace Core.ObjectMap
 						objectLight.Add(new ObjectLight
 						{
 							Id = obj.Key.GetPathWithSiblingIndex(),
-							Color = "#"+ColorUtility.ToHtmlStringRGBA(lightInfo.color),
+							Color = "#" + ColorUtility.ToHtmlStringRGBA(lightInfo.color),
 							Intensity = lightInfo.intensity,
 							Range = lightInfo.range,
 							SpotAngle = lightInfo.spotAngle,

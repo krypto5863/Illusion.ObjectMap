@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using ExtensibleSaveFormat;
-using HarmonyLib;
 using Illusion.Extensions;
 using KKAPI;
 using KKAPI.Studio;
 using KKAPI.Studio.SaveLoad;
 using Studio;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 namespace Core.ObjectMap
 {
@@ -48,21 +46,11 @@ namespace Core.ObjectMap
 			StudioSaveLoadApi.RegisterExtraBehaviour<ObjectMapController>(Guid);
 			StudioAPI.StudioLoadedChanged += (sender, args) =>
 			{
-				var tex2D = new Texture2D(2,2);
+				var tex2D = new Texture2D(2, 2);
 				tex2D.LoadImage(Convert.FromBase64String(IconBase64));
 				KKAPI.Studio.UI.CustomToolbarButtons.AddLeftToolbarButton(tex2D, ResetTransformOfSelected);
 				Studio.Studio.Instance.onChangeMap += OnInstanceChangeMap;
 			};
-
-			Harmony.CreateAndPatchAll(typeof(ObjectMap));
-		}
-
-		[HarmonyPatch(typeof(MonoBehaviour), nameof(StartCoroutine), typeof(string), typeof(object))]
-		[HarmonyPatch(typeof(MonoBehaviour), nameof(StartCoroutine), typeof(IEnumerator))]
-		[HarmonyPostfix]
-		private static void PatchStartCoroutine(ref MonoBehaviour __instance) 
-		{
-			Logger.LogDebug($"A coroutine was started on {__instance.gameObject.name} from {Environment.StackTrace}.");
 		}
 
 		internal static void ResetTransformOfSelected()
@@ -132,7 +120,7 @@ namespace Core.ObjectMap
 			var mapRoot = Map.instance?.mapRoot;
 #endif
 			if (mapRoot == null)
-			{ 
+			{
 				yield break;
 			}
 
@@ -184,7 +172,6 @@ namespace Core.ObjectMap
 				inactiveChild.gameObject.SetActive(false);
 			}
 		}
-
 
 		private void RecursiveCreateNode(GameObject gameObj, ObjectCtrlInfo parent)
 		{
@@ -256,7 +243,7 @@ namespace Core.ObjectMap
 			{
 				FullPathToObject = gameObj.GetPathWithSiblingIndex(),
 				Visible = renderer.enabled,
-				OriginalTransform = new []{ gameObj.transform.localPosition, gameObj.transform.localEulerAngles, gameObj.transform.lossyScale },
+				OriginalTransform = new[] { gameObj.transform.localPosition, gameObj.transform.localEulerAngles, gameObj.transform.lossyScale },
 			};
 
 #if KKS
@@ -270,7 +257,7 @@ namespace Core.ObjectMap
 			newItem.objectItem = gameObj;
 			newItem.childRoot = gameObj.transform;
 			newItem.arrayRender = (from v in gameObj.GetComponentsInChildren<Renderer>()
-				select v).ToArray();
+								   select v).ToArray();
 
 			newItem.seComponent = null;
 

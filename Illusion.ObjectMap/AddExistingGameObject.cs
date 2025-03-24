@@ -30,9 +30,9 @@ namespace Core.ObjectMap
 			ociitem.objectItem = gameObject;
 
 			ociitem.arrayRender = (from v in gameObject.GetComponentsInChildren<Renderer>()
-				where v.enabled
-				select v).ToArray();
-			
+								   where v.enabled
+								   select v).ToArray();
+
 			var componentsInChildren = gameObject.GetComponentsInChildren<ParticleSystem>();
 			if (!componentsInChildren.IsNullOrEmpty())
 			{
@@ -61,13 +61,12 @@ namespace Core.ObjectMap
 
 			ociitem.childRoot = gameObject.transform;
 
-			
 			ociitem.animator = gameObject.GetComponentInChildren<Animator>(true);
 			if (ociitem.animator)
 			{
 				ociitem.animator.enabled = true;
 			}
-			
+
 			/*
 			ociitem.itemComponent = gameObject.GetComponent<ItemComponent>();
 			if (ociitem.itemComponent != null)
@@ -136,7 +135,6 @@ namespace Core.ObjectMap
 			{
 				Studio.Studio.AddObjectCtrlInfo(ociitem);
 			}
-			
 
 			var parentTreeNode = parentNode != null ? parentNode : parentCtrl?.treeNodeObject;
 			var newTreeNode = Studio.Studio.AddNode(gameObject.name, parentTreeNode);
@@ -332,7 +330,6 @@ namespace Core.ObjectMap
 			// Set the child root to the folder itself.
 			ocifolder.childRoot = existingFolder.transform;
 
-			
 			// Add the folder to Studio's control info.
 			if (addInfo)
 			{
@@ -364,7 +361,7 @@ namespace Core.ObjectMap
 
 			// Apply positional changes.
 			folderInfo.changeAmount.OnChange();
-			
+
 			// Register the folder with Studio.
 			Studio.Studio.AddCtrlInfo(ocifolder);
 
