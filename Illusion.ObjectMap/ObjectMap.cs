@@ -134,11 +134,6 @@ namespace Core.ObjectMap
 				yield break;
 			}
 
-            if (mapRootObjects.Length > 1)
-            {
-                Logger.LogWarning("Loaded map contains more than one root object. This is improper!");
-            }
-
             var childCount = mapRootObjects
                 .Sum(m => m.GetDescendantCount());
 
@@ -148,7 +143,7 @@ namespace Core.ObjectMap
 
 			if (childCount > _objectLimit.Value)
 			{
-				Logger.LogMessage($"Skipped processing map because it has more objects than the configured limit ({childCount}/{_objectLimit.Value}).");
+				Logger.LogMessage($"Skipped processing map because it has more objects than the configured limit ({childCount} / {_objectLimit.Value}).");
 				yield break;
 			}
 
