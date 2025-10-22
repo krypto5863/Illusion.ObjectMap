@@ -9,7 +9,6 @@
     <Import_RootNamespace>Illusion.ObjectMap</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)AddExistingGameObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameObjectUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Objects\FolderProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Objects\LightProperties.cs" />
@@ -19,5 +18,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Objects\ObjectLight.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Objects\ObjectPosition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Objects\IObjectProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StudioObjectFactory.cs" />
   </ItemGroup>
 </Project>
