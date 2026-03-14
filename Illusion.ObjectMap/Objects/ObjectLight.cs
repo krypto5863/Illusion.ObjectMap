@@ -5,13 +5,13 @@ namespace Core.ObjectMap
 	[MessagePackObject(true)]
 	public class ObjectLight
 	{
-		public string Id;
 		public string Color;
+		public bool DrawTarget;
+		public bool Enable;
+		public string Id;
 		public float Intensity;
 		public float Range;
-		public float SpotAngle;
 		public bool Shadow;
-		public bool Enable;
-		public bool DrawTarget;
+		public float SpotAngle;
 	}
 }

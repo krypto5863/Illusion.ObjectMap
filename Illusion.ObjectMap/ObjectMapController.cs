@@ -1,10 +1,10 @@
-﻿using ExtensibleSaveFormat;
+﻿using System;
+using System.Collections.Generic;
+using ExtensibleSaveFormat;
 using KKAPI.Studio.SaveLoad;
 using KKAPI.Utilities;
 using MessagePack;
 using Studio;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.ObjectMap
@@ -15,14 +15,11 @@ namespace Core.ObjectMap
 			ReadOnlyDictionary<int, ObjectCtrlInfo> loadedItems)
 		{
 #if DEBUG
-			ObjectMap.Logger.LogDebug($"Loading scene data...");
+			ObjectMap.Logger.LogDebug("Loading scene data...");
 #endif
 			var data = GetExtendedData();
 
-			if (data == null)
-			{
-				return;
-			}
+			if (data == null) return;
 
 			if (data.data.TryGetValue("ObjectStates", out var states))
 			{
@@ -30,10 +27,7 @@ namespace Core.ObjectMap
 
 				foreach (var objectState in objectStates)
 				{
-					if (TryGetObjectInfo(objectState.Key, out var currentObjectInfo) == false)
-					{
-						continue;
-					}
+					if (!TryGetObjectInfo(objectState.Key, out var currentObjectInfo)) continue;
 
 					currentObjectInfo.treeNodeObject.visible = objectState.Value;
 				}
@@ -44,10 +38,7 @@ namespace Core.ObjectMap
 				var objectPositions = MessagePackSerializer.Deserialize<List<ObjectPosition>>((byte[])positions);
 				foreach (var objectPosition in objectPositions)
 				{
-					if (TryGetObjectInfo(objectPosition.Id, out var currentObjectInfo) == false)
-					{
-						continue;
-					}
+					if (!TryGetObjectInfo(objectPosition.Id, out var currentObjectInfo)) continue;
 
 					var changeAmount = currentObjectInfo.objectInfo.changeAmount;
 					changeAmount.pos = objectPosition.Transform[0];
@@ -60,18 +51,13 @@ namespace Core.ObjectMap
 
 			if (data.data.TryGetValue("FolderNames", out var folderNamesData))
 			{
-				var folderNames = MessagePackSerializer.Deserialize<Dictionary<string, string>>((byte[])folderNamesData);
+				var folderNames =
+					MessagePackSerializer.Deserialize<Dictionary<string, string>>((byte[])folderNamesData);
 				foreach (var folderName in folderNames)
 				{
-					if (TryGetObjectInfo(folderName.Key, out var currentObjectInfo) == false)
-					{
-						continue;
-					}
+					if (!TryGetObjectInfo(folderName.Key, out var currentObjectInfo)) continue;
 
-					if (currentObjectInfo is OCIFolder folderInfo)
-					{
-						folderInfo.name = folderName.Value;
-					}
+					if (currentObjectInfo is OCIFolder folderInfo) folderInfo.name = folderName.Value;
 				}
 			}
 
@@ -80,10 +66,7 @@ namespace Core.ObjectMap
 				var lightChanges = MessagePackSerializer.Deserialize<List<ObjectLight>>((byte[])lightChangesData);
 				foreach (var lightChange in lightChanges)
 				{
-					if (TryGetObjectInfo(lightChange.Id, out var currentObjectInfo) == false)
-					{
-						continue;
-					}
+					if (!TryGetObjectInfo(lightChange.Id, out var currentObjectInfo)) continue;
 
 					if (currentObjectInfo is OCILight light)
 					{
@@ -99,7 +82,7 @@ namespace Core.ObjectMap
 				}
 			}
 #if DEBUG
-			ObjectMap.Logger.LogDebug($"Scene load complete.");
+			ObjectMap.Logger.LogDebug("Scene load complete.");
 #endif
 		}
 
@@ -125,38 +108,33 @@ namespace Core.ObjectMap
 
 			foreach (var obj in ObjectMap.MapObjects)
 			{
-				if (ObjectMap.OriginalProperties.TryGetValue(obj.Key.transform, out var originalValues) == false)
-				{
-					continue;
-				}
+				if (!ObjectMap.OriginalProperties.TryGetValue(obj.Key.transform, out var originalValues)) continue;
 
 				if (originalValues.Visible != obj.Value.treeNodeObject.visible)
-				{
 					objectStates[obj.Key.GetPathWithSiblingIndex()] = obj.Value.treeNodeObject.visible;
-				}
 
 				var ogTransforms = originalValues.OriginalTransform;
 				var changeAmount = obj.Value.objectInfo.changeAmount;
 
-				if (Vector3.Distance(ogTransforms[0], changeAmount.pos) > 0.001f || Vector3.Distance(ogTransforms[1], changeAmount.rot) > 0.001f || Vector3.Distance(ogTransforms[2], changeAmount.scale) > 0.001f)
-				{
+				if (Vector3.Distance(ogTransforms[0], changeAmount.pos) > 0.001f ||
+				    Vector3.Distance(ogTransforms[1], changeAmount.rot) > 0.001f ||
+				    Vector3.Distance(ogTransforms[2], changeAmount.scale) > 0.001f)
 					objectPositions.Add(new ObjectPosition
 					{
 						Id = obj.Key.GetPathWithSiblingIndex(),
 						Transform = new[] { changeAmount.pos, changeAmount.rot, changeAmount.scale }
 					});
-				}
-				if (obj.Value.objectInfo is OIFolderInfo folderInfo && originalValues is FolderProperties folderOriginals)
-				{
-					if (folderInfo.name.Equals(folderOriginals.FolderName) == false)
-					{
+				if (obj.Value.objectInfo is OIFolderInfo folderInfo &&
+				    originalValues is FolderProperties folderOriginals)
+					if (!folderInfo.name.Equals(folderOriginals.FolderName))
 						objectFolderName[obj.Key.GetPathWithSiblingIndex()] = folderInfo.name;
-					}
-				}
+
 				if (obj.Value.objectInfo is OILightInfo lightInfo && originalValues is LightProperties lightProperties)
-				{
-					if (lightInfo.color != lightProperties.Color || Math.Abs(lightInfo.intensity - lightProperties.Intensity) > 0.0001 || Math.Abs(lightInfo.range - lightProperties.Range) > 0.0001 || Math.Abs(lightInfo.spotAngle - lightProperties.SpotAngle) > 0.0001 || lightInfo.shadow != lightProperties.Shadow || lightInfo.enable != lightProperties.Visible)
-					{
+					if (lightInfo.color != lightProperties.Color ||
+					    Math.Abs(lightInfo.intensity - lightProperties.Intensity) > 0.0001 ||
+					    Math.Abs(lightInfo.range - lightProperties.Range) > 0.0001 ||
+					    Math.Abs(lightInfo.spotAngle - lightProperties.SpotAngle) > 0.0001 ||
+					    lightInfo.shadow != lightProperties.Shadow || lightInfo.enable != lightProperties.Visible)
 						objectLight.Add(new ObjectLight
 						{
 							Id = obj.Key.GetPathWithSiblingIndex(),
@@ -168,8 +146,6 @@ namespace Core.ObjectMap
 							Enable = lightInfo.enable,
 							DrawTarget = lightInfo.drawTarget
 						});
-					}
-				}
 			}
 
 			SetExtendedData(new PluginData

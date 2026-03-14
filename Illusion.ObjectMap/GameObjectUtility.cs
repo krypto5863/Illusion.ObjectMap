@@ -8,7 +8,7 @@ namespace Core.ObjectMap
 	public static class GameObjectPathUtility
 	{
 		/// <summary>
-		/// Gets the full hierarchical path of a GameObject, including sibling indices to differentiate duplicates.
+		///     Gets the full hierarchical path of a GameObject, including sibling indices to differentiate duplicates.
 		/// </summary>
 		/// <param name="gameObject">The GameObject to retrieve the path for.</param>
 		/// <returns>The unique path for the GameObject.</returns>
@@ -54,12 +54,13 @@ namespace Core.ObjectMap
 				{
 					// Start at the root
 					var rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-					current = Array.Find(rootObjects, obj => obj.name == name && obj.transform.GetSiblingIndex() == siblingIndex)?.transform;
+					current = Array.Find(rootObjects,
+						obj => obj.name == name && obj.transform.GetSiblingIndex() == siblingIndex)?.transform;
 				}
 				else
 				{
 					// Find child by name and sibling index
-					current = GetChildByNameAndIndex(current, name, siblingIndex);
+					current = current.GetChildByNameAndIndex(name, siblingIndex);
 				}
 
 				if (current == null)
@@ -72,13 +73,10 @@ namespace Core.ObjectMap
 		private static Transform GetChildByNameAndIndex(this Transform parent, string name, int siblingIndex)
 		{
 			foreach (Transform child in parent)
-			{
 				if (child.name == name)
-				{
 					if (child.GetSiblingIndex() == siblingIndex)
 						return child;
-				}
-			}
+
 			return null;
 		}
 
@@ -90,6 +88,7 @@ namespace Core.ObjectMap
 				count++;
 				count += child.gameObject.GetDescendantCount();
 			}
+
 			return count;
 		}
 	}
